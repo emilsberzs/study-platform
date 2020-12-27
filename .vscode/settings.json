@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\emils\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+    "python.pythonPath": "env\\educa\\Scripts\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }
