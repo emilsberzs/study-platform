@@ -134,10 +134,11 @@ class ContentDeleteView(View):
         return redirect('module_content_list', module.id)
 
 
-# class ManageCourseList(ListView):
-#     model = Course
-#     template_name = 'courses/manage/course/list.html'
+class ModuleContentListView(TemplateResponseMixin, View):
+    template_name = 'courses/manage/module/content_list.html'
 
-#     def get_queryset(self):
-#         qs = super().get_queryset()
-#         return qs.filter(owner=self.request.user)
+    def get(self, request, module_id):
+        module = get_object_or_404(Module,
+                                   id=module_id,
+                                   course__owner=request.user)
+        return self.render_to_response({'module': module})
