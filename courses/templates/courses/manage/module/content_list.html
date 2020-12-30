@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load course %}
 
 {% block title %}
 Module {{module.order|add:1}}: {{module.title}}
@@ -11,7 +12,7 @@ Module {{module.order|add:1}}: {{module.title}}
     <h3>Modules</h3>
     <ul id="modules">
         {% for m in course.modules.all %}
-        <li data-id="{{ m.id }}" {% ifequal m, module %} class="selected" {% endifequal %}>
+        <li data-id="{{ m.id }}" {% ifequal m module %} class="selected" {% endifequal %}>
             <a href="{% url 'module_content_list' m.id %}">
                 <span>
                     Module <span class="order">{{ m.order|add:1 }}</span>
@@ -34,8 +35,8 @@ Module {{module.order|add:1}}: {{module.title}}
         {% for content in module.contents.all %}
         <div data-id="{{ content.id }}">
             {% with item=content.item %}
-            <p>{{item}}</p>
-            <a href="#">Edit</a>
+            <p>{{item}} ({{item|model_name}})</p>
+            <a href="{% url 'module_content_update' module.id item|model_name item.id %}">Edit</a>
             <form action="{% url 'module_content_delete' content.id %}" method="post">
                 <input type="submit" value="Delete">
                 {% csrf_token %}
